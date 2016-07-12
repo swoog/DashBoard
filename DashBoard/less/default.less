@@ -1,0 +1,32 @@
+﻿@tileWidth: 160px;
+@tileHeight: @tileWidth;
+
+@margin: 10px;
+@padding: 10px;
+
+//Global
+@background-color: #e8e8e8;
+
+//Tile
+@tile-background-color: #fff;
+@shadow: 2px 2px 3px #dadada;
+
+body {
+    background: @background-color;
+    font-family: Segoe UI,Helvetica Neue,Helvetica,Arial,Verdana,sans-serif;
+}
+
+.tiles {
+    display: flex;
+}
+
+.tile {
+    width: @tileWidth - @padding*2;
+    height: @tileHeight - @padding*2;
+    padding: @padding;
+    margin: 0 @margin @margin 0;
+    background: @tile-background-color;
+    box-shadow: @shadow;
+}
+
+@import (once) "build";

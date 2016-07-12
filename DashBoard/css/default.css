@@ -1,5 +1,23 @@
-﻿body {
-  /* Supprimer ces marques de commentaire pour permettre les opérations de défilement et de zoom
-  touch-action: manipulation;
-  */
+body {
+  background: #e8e8e8;
+  font-family: Segoe UI, Helvetica Neue, Helvetica, Arial, Verdana, sans-serif;
+}
+.tiles {
+  display: flex;
+}
+.tile {
+  width: 140px;
+  height: 140px;
+  padding: 10px;
+  margin: 0 10px 10px 0;
+  background: #fff;
+  box-shadow: 2px 2px 3px #dadada;
+}
+.tile.green {
+  background: #339933;
+  color: #fff;
+}
+.tile.red {
+  background: #e51400;
+  color: #fff;
 }
