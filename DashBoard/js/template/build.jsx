@@ -1,7 +1,7 @@
-﻿import React from "react";
+﻿import React, {Component} from "react";
 
-var Build = React.createClass({
-    render: function() {
+class Build extends Component {
+    render () {
         if (!this.props.data.builds) {
             return <div className="tile">Loading...</div>;
         }
@@ -12,6 +12,8 @@ var Build = React.createClass({
         }
 
         if (lastBuild.result === "failed") {
+            var urlImage = lastBuild.requestedFor.imageUrl;
+            //urlImage = urlImage.replace('https://', 'https://au')
             return <div className="tile red">{lastBuild.definition.name}<br />
             {lastBuild.requestedFor.displayName}
             <img src={lastBuild.requestedFor.imageUrl} />
@@ -20,6 +22,6 @@ var Build = React.createClass({
 
         return <div className="tile green">{lastBuild.definition.name}</div>;
     }
-});
+}
 
 export default Build;

@@ -67,6 +67,8 @@
     <Content Include="images\Square44x44Logo.targetsize-24_altform-unplated.png" />
     <Content Include="images\StoreLogo.png" />
     <Content Include="images\Wide310x150Logo.scale-200.png" />
+    <Content Include="js\actions\index.jsx" />
+    <Content Include="js\dashboardstore.jsx" />
     <Content Include="js\service.jsx" />
     <Content Include="js\template\build.jsx" />
     <Content Include="js\tile.jsx" />

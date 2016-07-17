@@ -1,5 +1,7 @@
 ﻿var myPatToken = 'olj6oc3rlwhnljmgclpq7554gvi2crag6qhpkiu2r7h4mqdgt7fq';
 
+//httpChannel.setRequestHeader("Authorization", 'Basic ' + btoa("" + ":" + myPatToken), false);
+
 export default function(service, success) {
     return $.ajax({
         url: 'https://cellenza-studio.visualstudio.com/defaultcollection' + service,
