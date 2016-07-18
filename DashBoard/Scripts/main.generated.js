@@ -44,7 +44,7 @@
 /* 0 */
 /***/ function(module, exports, __webpack_require__) {
 
-	module.exports = __webpack_require__(178);
+	module.exports = __webpack_require__(177);
 
 
 /***/ },
@@ -10791,28 +10791,25 @@
 /* 88 */
 /***/ function(module, exports) {
 
-	'use strict';
+	"use strict";
 
 	Object.defineProperty(exports, "__esModule", {
 	    value: true
 	});
-
-	exports.default = function (service, success) {
-	    return $.ajax({
-	        url: 'https://cellenza-studio.visualstudio.com/defaultcollection' + service,
-	        dataType: 'json',
-	        headers: {
-	            'Authorization': 'Basic ' + btoa("" + ":" + myPatToken)
-	        },
-	        success: success
-	    });
+	var updateTile = exports.updateTile = function updateTile(index, result) {
+	    return {
+	        type: 'UPDATE_TILE',
+	        index: index,
+	        result: result
+	    };
 	};
 
-	var myPatToken = 'olj6oc3rlwhnljmgclpq7554gvi2crag6qhpkiu2r7h4mqdgt7fq';
-
-	//httpChannel.setRequestHeader("Authorization", 'Basic ' + btoa("" + ":" + myPatToken), false);
-
-	;
+	var addTile = exports.addTile = function addTile(tile) {
+	    return {
+	        type: "ADD_TILE",
+	        tile: tile
+	    };
+	};
 
 /***/ },
 /* 89 */
@@ -10873,7 +10870,7 @@
 
 	var _isPlainObject2 = _interopRequireDefault(_isPlainObject);
 
-	var _symbolObservable = __webpack_require__(188);
+	var _symbolObservable = __webpack_require__(190);
 
 	var _symbolObservable2 = _interopRequireDefault(_symbolObservable);
 
@@ -11160,9 +11157,9 @@
 /* 92 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var getPrototype = __webpack_require__(185),
-	    isHostObject = __webpack_require__(186),
-	    isObjectLike = __webpack_require__(187);
+	var getPrototype = __webpack_require__(187),
+	    isHostObject = __webpack_require__(188),
+	    isObjectLike = __webpack_require__(189);
 
 	/** `Object#toString` result references. */
 	var objectTag = '[object Object]';
@@ -21330,7 +21327,7 @@
 
 	var _react2 = _interopRequireDefault(_react);
 
-	var _tile = __webpack_require__(180);
+	var _tile = __webpack_require__(182);
 
 	var _tile2 = _interopRequireDefault(_tile);
 
@@ -21356,23 +21353,6 @@
 
 /***/ },
 /* 176 */
-/***/ function(module, exports) {
-
-	'use strict';
-
-	Object.defineProperty(exports, "__esModule", {
-	    value: true
-	});
-	var updateBuild = exports.updateBuild = function updateBuild(index, result) {
-	    return {
-	        type: 'UPDATE_BUILD',
-	        index: index,
-	        result: result
-	    };
-	};
-
-/***/ },
-/* 177 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -21381,36 +21361,22 @@
 	    value: true
 	});
 
-	var _redux = __webpack_require__(184);
+	var _redux = __webpack_require__(186);
 
 	function _toConsumableArray(arr) { if (Array.isArray(arr)) { for (var i = 0, arr2 = Array(arr.length); i < arr.length; i++) { arr2[i] = arr[i]; } return arr2; } else { return Array.from(arr); } }
 
 	var dashboardreducer = function dashboardreducer(state, action) {
 	    if (typeof state === 'undefined') {
-	        return [{
-	            name: 'Tile1',
-	            type: 'time',
-	            buildId: 0
-	        }, {
-	            name: 'Tile1',
-	            type: 'build',
-	            buildId: 6
-	        }, {
-	            name: 'Tile2',
-	            type: 'build',
-	            buildId: 7
-	        }, {
-	            name: 'Tile2',
-	            type: 'build',
-	            buildId: 20
-	        }];
+	        return [];
 	    }
 
 	    switch (action.type) {
-	        case "UPDATE_BUILD":
+	        case "UPDATE_TILE":
 	            var tile = state[action.index];
-	            tile = Object.assign({}, tile, { builds: action.result });
+	            tile = Object.assign({}, tile, action.result);
 	            return [].concat(_toConsumableArray(state.slice(0, action.index)), [tile], _toConsumableArray(state.slice(action.index + 1)));
+	        case "ADD_TILE":
+	            return [].concat(_toConsumableArray(state), [action.tile]);
 	        default:
 	            return state;
 	    }
@@ -21419,7 +21385,7 @@
 	exports.default = (0, _redux.createStore)(dashboardreducer);
 
 /***/ },
-/* 178 */
+/* 177 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -21438,15 +21404,17 @@
 
 	var _Tiles2 = _interopRequireDefault(_Tiles);
 
-	var _service = __webpack_require__(88);
-
-	var _service2 = _interopRequireDefault(_service);
-
-	var _dashboardstore = __webpack_require__(177);
+	var _dashboardstore = __webpack_require__(176);
 
 	var _dashboardstore2 = _interopRequireDefault(_dashboardstore);
 
-	var _actions = __webpack_require__(176);
+	var _build = __webpack_require__(179);
+
+	var _build2 = _interopRequireDefault(_build);
+
+	var _time = __webpack_require__(180);
+
+	var _time2 = _interopRequireDefault(_time);
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -21456,18 +21424,17 @@
 
 	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
-	var getBuild = function getBuild(b, index) {
-	    return function () {
-	        (0, _service2.default)('/Wanapp/_apis/build/builds?definitions=' + b + '&$top=1&api-version=2.0', function (result) {
-	            _dashboardstore2.default.dispatch((0, _actions.updateBuild)(index, result));
-	        }.bind(this));
-	    };
-	};
+	var dispatch = _dashboardstore2.default.dispatch;
+
+	(0, _time2.default)(dispatch);
+	(0, _build2.default)(dispatch, 7);
+	(0, _build2.default)(dispatch, 6);
+	(0, _build2.default)(dispatch, 20);
 
 	var myTimer = function myTimer() {
 	    var datas = _dashboardstore2.default.getState();
 	    for (var i = 0; i < datas.length; i++) {
-	        getBuild(datas[i].buildId, i)();
+	        datas[i].service(i);
 	    }
 	};
 
@@ -21485,7 +21452,16 @@
 	    _createClass(Main, [{
 	        key: "render",
 	        value: function render() {
-	            return _react2.default.createElement(_Tiles2.default, { data: _dashboardstore2.default.getState() });
+	            return _react2.default.createElement(
+	                "div",
+	                null,
+	                _react2.default.createElement(
+	                    "div",
+	                    { className: "header" },
+	                    "DashBoard"
+	                ),
+	                _react2.default.createElement(_Tiles2.default, { data: _dashboardstore2.default.getState() })
+	            );
 	        }
 	    }]);
 
@@ -21501,7 +21477,85 @@
 	render();
 
 /***/ },
+/* 178 */
+/***/ function(module, exports) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	    value: true
+	});
+
+	exports.default = function (service, success) {
+	    return $.ajax({
+	        url: 'https://cellenza-studio.visualstudio.com/defaultcollection' + service,
+	        dataType: 'json',
+	        headers: {
+	            'Authorization': 'Basic ' + btoa("" + ":" + myPatToken)
+	        },
+	        success: success
+	    });
+	};
+
+	var myPatToken = 'olj6oc3rlwhnljmgclpq7554gvi2crag6qhpkiu2r7h4mqdgt7fq';
+
+	//httpChannel.setRequestHeader("Authorization", 'Basic ' + btoa("" + ":" + myPatToken), false);
+
+	;
+
+/***/ },
 /* 179 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	    value: true
+	});
+
+	var _service = __webpack_require__(178);
+
+	var _service2 = _interopRequireDefault(_service);
+
+	var _actions = __webpack_require__(88);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	exports.default = function (dispatch, buildId) {
+	    var getBuild = function getBuild(b) {
+	        return function (index) {
+	            (0, _service2.default)('/Wanapp/_apis/build/builds?definitions=' + b + '&$top=1&api-version=2.0', function (result) {
+	                dispatch((0, _actions.updateTile)(index, { builds: result }));
+	            }.bind(this));
+	        };
+	    };
+
+	    var service = getBuild(buildId);
+	    dispatch((0, _actions.addTile)({ type: 'build', buildId: buildId, service: service }));
+	};
+
+/***/ },
+/* 180 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	    value: true
+	});
+
+	var _actions = __webpack_require__(88);
+
+	exports.default = function (dispatch) {
+	    var service = function service(index) {
+	        var d = new Date();
+	        dispatch((0, _actions.updateTile)(index, { name: d.toLocaleTimeString() }));
+	    };
+	    dispatch((0, _actions.addTile)({ type: 'time', service: service }));
+	};
+
+/***/ },
+/* 181 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -21580,7 +21634,7 @@
 	exports.default = Build;
 
 /***/ },
-/* 180 */
+/* 182 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -21595,11 +21649,7 @@
 
 	var _react2 = _interopRequireDefault(_react);
 
-	var _service = __webpack_require__(88);
-
-	var _service2 = _interopRequireDefault(_service);
-
-	var _build = __webpack_require__(179);
+	var _build = __webpack_require__(181);
 
 	var _build2 = _interopRequireDefault(_build);
 
@@ -21623,16 +21673,17 @@
 	    _createClass(Tile, [{
 	        key: "render",
 	        value: function render() {
-	            if (this.props.data.type === 'build') {
-	                return _react2.default.createElement(_build2.default, { data: this.props.data });
+	            switch (this.props.data.type) {
+	                case 'build':
+	                    return _react2.default.createElement(_build2.default, { data: this.props.data });
+	                default:
+	                    return _react2.default.createElement(
+	                        "div",
+	                        { className: "tile" },
+	                        "Hello ",
+	                        this.props.data.name
+	                    );
 	            }
-
-	            return _react2.default.createElement(
-	                "div",
-	                { className: "tile" },
-	                "Hello ",
-	                this.props.data.name
-	            );
 	        }
 	    }]);
 
@@ -21642,7 +21693,7 @@
 	exports.default = Tile;
 
 /***/ },
-/* 181 */
+/* 183 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -21705,7 +21756,7 @@
 	}
 
 /***/ },
-/* 182 */
+/* 184 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -21761,7 +21812,7 @@
 	}
 
 /***/ },
-/* 183 */
+/* 185 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -21893,7 +21944,7 @@
 	}
 
 /***/ },
-/* 184 */
+/* 186 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -21905,15 +21956,15 @@
 
 	var _createStore2 = _interopRequireDefault(_createStore);
 
-	var _combineReducers = __webpack_require__(183);
+	var _combineReducers = __webpack_require__(185);
 
 	var _combineReducers2 = _interopRequireDefault(_combineReducers);
 
-	var _bindActionCreators = __webpack_require__(182);
+	var _bindActionCreators = __webpack_require__(184);
 
 	var _bindActionCreators2 = _interopRequireDefault(_bindActionCreators);
 
-	var _applyMiddleware = __webpack_require__(181);
+	var _applyMiddleware = __webpack_require__(183);
 
 	var _applyMiddleware2 = _interopRequireDefault(_applyMiddleware);
 
@@ -21944,7 +21995,7 @@
 	exports.compose = _compose2["default"];
 
 /***/ },
-/* 185 */
+/* 187 */
 /***/ function(module, exports) {
 
 	/* Built-in method references for those with the same name as other `lodash` methods. */
@@ -21965,7 +22016,7 @@
 
 
 /***/ },
-/* 186 */
+/* 188 */
 /***/ function(module, exports) {
 
 	/**
@@ -21991,7 +22042,7 @@
 
 
 /***/ },
-/* 187 */
+/* 189 */
 /***/ function(module, exports) {
 
 	/**
@@ -22026,18 +22077,18 @@
 
 
 /***/ },
-/* 188 */
+/* 190 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(global) {/* global window */
 	'use strict';
 
-	module.exports = __webpack_require__(189)(global || window || this);
+	module.exports = __webpack_require__(191)(global || window || this);
 
 	/* WEBPACK VAR INJECTION */}.call(exports, (function() { return this; }())))
 
 /***/ },
-/* 189 */
+/* 191 */
 /***/ function(module, exports) {
 
 	'use strict';

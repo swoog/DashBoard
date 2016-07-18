@@ -2,43 +2,26 @@
 
 const dashboardreducer = (state, action) => {
     if (typeof state === 'undefined') {
-        return [
-            {
-                name: 'Tile1',
-                type: 'time',
-                buildId:0,
-            },
-            {
-                name: 'Tile1',
-                type: 'build',
-                buildId:6
-            },
-            {
-                name: 'Tile2',
-                type: 'build',
-                buildId:7
-            },
-            {
-                name: 'Tile2',
-                type: 'build',
-                buildId:20
-            }
-        ];
+        return [];
     }
 
     switch (action.type) {
-        case "UPDATE_BUILD":
+        case "UPDATE_TILE":
             var tile = state[action.index];
-            tile = Object.assign({}, tile, { builds: action.result });
+            tile = Object.assign({}, tile, action.result);
             return [
                 ...state.slice(0, action.index),
                     tile,
                 ...state.slice(action.index + 1)
-                ];
+            ];
+        case "ADD_TILE":
+            return [
+                ...state,
+                action.tile
+            ];
         default:
             return state;
     }
 }
-
 
 export default createStore(dashboardreducer)

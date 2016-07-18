@@ -1,9 +1,15 @@
 body {
   background: #e8e8e8;
   font-family: Segoe UI, Helvetica Neue, Helvetica, Arial, Verdana, sans-serif;
+  margin: 0px;
+}
+.header {
+  background: #AAF;
+  color: #fff;
 }
 .tiles {
   display: flex;
+  margin: 10px;
 }
 .tile {
   width: 140px;

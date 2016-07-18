@@ -14,15 +14,17 @@ var _Tiles = require("./Tiles");
 
 var _Tiles2 = _interopRequireDefault(_Tiles);
 
-var _service = require("./service");
-
-var _service2 = _interopRequireDefault(_service);
-
 var _dashboardstore = require("./dashboardstore");
 
 var _dashboardstore2 = _interopRequireDefault(_dashboardstore);
 
-var _actions = require("./actions");
+var _build = require("./services/build");
+
+var _build2 = _interopRequireDefault(_build);
+
+var _time = require("./services/time");
+
+var _time2 = _interopRequireDefault(_time);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -32,18 +34,17 @@ function _possibleConstructorReturn(self, call) { if (!self) { throw new Referen
 
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
-var getBuild = function getBuild(b, index) {
-    return function () {
-        (0, _service2.default)('/Wanapp/_apis/build/builds?definitions=' + b + '&$top=1&api-version=2.0', function (result) {
-            _dashboardstore2.default.dispatch((0, _actions.updateBuild)(index, result));
-        }.bind(this));
-    };
-};
+var dispatch = _dashboardstore2.default.dispatch;
+
+(0, _time2.default)(dispatch);
+(0, _build2.default)(dispatch, 7);
+(0, _build2.default)(dispatch, 6);
+(0, _build2.default)(dispatch, 20);
 
 var myTimer = function myTimer() {
     var datas = _dashboardstore2.default.getState();
     for (var i = 0; i < datas.length; i++) {
-        getBuild(datas[i].buildId, i)();
+        datas[i].service(i);
     }
 };
 
@@ -61,7 +62,16 @@ var Main = function (_Component) {
     _createClass(Main, [{
         key: "render",
         value: function render() {
-            return _react2.default.createElement(_Tiles2.default, { data: _dashboardstore2.default.getState() });
+            return _react2.default.createElement(
+                "div",
+                null,
+                _react2.default.createElement(
+                    "div",
+                    { className: "header" },
+                    "DashBoard"
+                ),
+                _react2.default.createElement(_Tiles2.default, { data: _dashboardstore2.default.getState() })
+            );
         }
     }]);
 

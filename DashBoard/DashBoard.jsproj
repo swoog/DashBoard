@@ -70,6 +70,8 @@
     <Content Include="js\actions\index.jsx" />
     <Content Include="js\dashboardstore.jsx" />
     <Content Include="js\service.jsx" />
+    <Content Include="js\services\time.jsx" />
+    <Content Include="js\services\build.jsx" />
     <Content Include="js\template\build.jsx" />
     <Content Include="js\tile.jsx" />
     <Content Include="js\tiles.jsx" />

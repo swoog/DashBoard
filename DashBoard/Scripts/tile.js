@@ -10,10 +10,6 @@ var _react = require("react");
 
 var _react2 = _interopRequireDefault(_react);
 
-var _service = require("./service");
-
-var _service2 = _interopRequireDefault(_service);
-
 var _build = require("./template/build");
 
 var _build2 = _interopRequireDefault(_build);
@@ -38,16 +34,17 @@ var Tile = function (_Component) {
     _createClass(Tile, [{
         key: "render",
         value: function render() {
-            if (this.props.data.type === 'build') {
-                return _react2.default.createElement(_build2.default, { data: this.props.data });
+            switch (this.props.data.type) {
+                case 'build':
+                    return _react2.default.createElement(_build2.default, { data: this.props.data });
+                default:
+                    return _react2.default.createElement(
+                        "div",
+                        { className: "tile" },
+                        "Hello ",
+                        this.props.data.name
+                    );
             }
-
-            return _react2.default.createElement(
-                "div",
-                { className: "tile" },
-                "Hello ",
-                this.props.data.name
-            );
         }
     }]);
 
