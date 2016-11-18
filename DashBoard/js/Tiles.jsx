@@ -8,5 +8,6 @@ var Tiles = React.createClass({
         return <div className="tiles">{tiles}</div>;
     }
 });
+// test
 
 export default Tiles;

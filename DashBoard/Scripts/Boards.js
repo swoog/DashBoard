@@ -1,4 +1,4 @@
-"use strict";
+'use strict';
 
 Object.defineProperty(exports, "__esModule", {
     value: true
@@ -6,13 +6,15 @@ Object.defineProperty(exports, "__esModule", {
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
-var _react = require("react");
+var _react = require('react');
 
 var _react2 = _interopRequireDefault(_react);
 
-var _build = require("./template/build");
+var _actions = require('./actions');
 
-var _build2 = _interopRequireDefault(_build);
+var _sprintsBoard = require('./sprintsBoard');
+
+var _sprintsBoard2 = _interopRequireDefault(_sprintsBoard);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -22,33 +24,52 @@ function _possibleConstructorReturn(self, call) { if (!self) { throw new Referen
 
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
-var Tile = function (_Component) {
-    _inherits(Tile, _Component);
+var Boards = function (_Component) {
+    _inherits(Boards, _Component);
 
-    function Tile() {
-        _classCallCheck(this, Tile);
+    function Boards() {
+        _classCallCheck(this, Boards);
 
-        return _possibleConstructorReturn(this, (Tile.__proto__ || Object.getPrototypeOf(Tile)).apply(this, arguments));
+        return _possibleConstructorReturn(this, (Boards.__proto__ || Object.getPrototypeOf(Boards)).apply(this, arguments));
     }
 
-    _createClass(Tile, [{
-        key: "render",
+    _createClass(Boards, [{
+        key: 'gotoSettings',
+        value: function gotoSettings() {
+            this.props.dispatch((0, _actions.gotoSettings)());
+        }
+    }, {
+        key: 'render',
         value: function render() {
-            switch (this.props.data.type) {
-                case 'build':
-                    return _react2.default.createElement(_build2.default, { data: this.props.data });
-                default:
-                    return _react2.default.createElement(
-                        "div",
-                        { className: "tile" },
-                        "Hello ",
-                        this.props.data.name
-                    );
+            if (this.props.data.boards == undefined) {
+                return _react2.default.createElement(
+                    'div',
+                    null,
+                    'No board is define. Go to settings to define board',
+                    _react2.default.createElement(
+                        'button',
+                        { onClick: this.gotoSettings.bind(this) },
+                        'Goto settings'
+                    )
+                );
             }
+            var i = 0;
+            var dispatch = this.dispatch;
+            var boards = this.props.data.boards.map(function (b) {
+                if (b.type == 'SPRINT') {
+                    return _react2.default.createElement(_sprintsBoard2.default, { key: i++, data: b, distpatch: dispatch });
+                }
+            });
+
+            return _react2.default.createElement(
+                'div',
+                null,
+                boards
+            );
         }
     }]);
 
-    return Tile;
+    return Boards;
 }(_react.Component);
 
-exports.default = Tile;
+exports.default = Boards;

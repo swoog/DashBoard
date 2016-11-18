@@ -24,7 +24,7 @@ var Build = function (_Component) {
     function Build() {
         _classCallCheck(this, Build);
 
-        return _possibleConstructorReturn(this, Object.getPrototypeOf(Build).apply(this, arguments));
+        return _possibleConstructorReturn(this, (Build.__proto__ || Object.getPrototypeOf(Build)).apply(this, arguments));
     }
 
     _createClass(Build, [{

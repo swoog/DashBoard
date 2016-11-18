@@ -14,8 +14,8 @@ var _tile2 = _interopRequireDefault(_tile);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-var Tiles = _react2.default.createClass({
-    displayName: "Tiles",
+var SprintsBoard = _react2.default.createClass({
+    displayName: "SprintsBoard",
 
     render: function render() {
         var tiles = this.props.data.map(function (d) {
@@ -29,6 +29,5 @@ var Tiles = _react2.default.createClass({
         );
     }
 });
-// test
 
 exports.default = Tiles;

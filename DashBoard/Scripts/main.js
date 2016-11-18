@@ -26,6 +26,18 @@ var _time = require("./services/time");
 
 var _time2 = _interopRequireDefault(_time);
 
+var _boards = require("./boards");
+
+var _boards2 = _interopRequireDefault(_boards);
+
+var _settings = require("./settings");
+
+var _settings2 = _interopRequireDefault(_settings);
+
+var _actions = require("./actions");
+
+var _service = require("./service");
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -36,15 +48,34 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
 
 var dispatch = _dashboardstore2.default.dispatch;
 
-(0, _time2.default)(dispatch);
-(0, _build2.default)(dispatch, 7);
-(0, _build2.default)(dispatch, 6);
-(0, _build2.default)(dispatch, 20);
+//dispatch(addBoard("Builds"));
+//dispatch(addSprintBoard("Sprint"));
+
+//addTimeTile(dispatch);
+//addBuildTile(dispatch, 7);
+//addBuildTile(dispatch, 6);
+//addBuildTile(dispatch, 20);
+
+var services = [];
+//services.push(function(i) {
+//    function updateItems(items) {
+//        Service('/_apis/wit/WorkItems?ids=' +
+//            items + '&fields=System.Id,System.WorkItemType,System.Title,System.AssignedTo,System.State,System.IterationPath,Microsoft.VSTS.Scheduling.Effort,Microsoft.VSTS.Common.BacklogPriority&api-version=1.0',
+//            function(result) {
+//                dispatch(updateSprintBoard(result));
+//            }.bind(this));
+//    };
+
+//    ServicePost('/Neobd-Git/_apis/wit/wiql?api-version=1.0', "{\"query\": \"Select [System.Id] FROM WorkItems WHERE [System.IterationPath] under 'Neobd-Git' AND [System.WorkItemType] IN GROUP 'Microsoft.RequirementCategory' AND [System.WorkItemType] IN GROUP 'Microsoft.RequirementCategory' AND [System.State] IN ('New','Approved','Committed', 'Done')\"}", function(result) {
+//        var workItems = result.workItems;
+//        updateItems(workItems.reduce(function(p, i) { return p + ',' + i.id; }, '').substr(1));
+//    }.bind(this));
+//});
 
 var myTimer = function myTimer() {
-    var datas = _dashboardstore2.default.getState();
+    var datas = services;
     for (var i = 0; i < datas.length; i++) {
-        datas[i].service(i);
+        services[i](i);
     }
 };
 
@@ -56,22 +87,46 @@ var Main = function (_Component) {
     function Main() {
         _classCallCheck(this, Main);
 
-        return _possibleConstructorReturn(this, Object.getPrototypeOf(Main).apply(this, arguments));
+        return _possibleConstructorReturn(this, (Main.__proto__ || Object.getPrototypeOf(Main)).apply(this, arguments));
     }
 
     _createClass(Main, [{
         key: "render",
         value: function render() {
-            return _react2.default.createElement(
-                "div",
-                null,
-                _react2.default.createElement(
-                    "div",
-                    { className: "header" },
-                    "DashBoard"
-                ),
-                _react2.default.createElement(_Tiles2.default, { data: _dashboardstore2.default.getState() })
-            );
+            var state = _dashboardstore2.default.getState();
+            console.log('State : ');
+            console.log(state);
+
+            switch (state.mode) {
+                case 'SETTINGS':
+                    return _react2.default.createElement(
+                        "div",
+                        null,
+                        _react2.default.createElement(
+                            "div",
+                            { className: "header" },
+                            "Settings"
+                        ),
+                        _react2.default.createElement(_settings2.default, { data: state, dispatch: _dashboardstore2.default.dispatch })
+                    );
+                case 'DASHBOARD':
+                    return _react2.default.createElement(
+                        "div",
+                        null,
+                        _react2.default.createElement(
+                            "div",
+                            { className: "header" },
+                            "DashBoard"
+                        ),
+                        _react2.default.createElement(_boards2.default, { data: state, dispatch: _dashboardstore2.default.dispatch })
+                    );
+                default:
+                    return _react2.default.createElement(
+                        "div",
+                        null,
+                        "No Mode"
+                    );;
+            }
         }
     }]);
 
