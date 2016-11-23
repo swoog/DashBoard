@@ -21,18 +21,19 @@ export const addTilesBoard = (boardName) => {
     }
 }
 
-export const addSprintBoard = (boardName, vstsUrl, vstsProject) => {
+export const addSprintBoard = (boardName, vstsUrl, vstsProject, vstsPatToken) => {
     return {
-        type:"ADD_SPRINT_BOARD",
+        type: "ADD_SPRINT_BOARD",
         name: boardName,
         url: vstsUrl,
-        project: vstsProject
+        project: vstsProject,
+        patToken: vstsPatToken
     }
 }
 
 export const removeBoard = (index) => {
     return {
-        type:"REMOVE_BOARD",
+        type: "REMOVE_BOARD",
         index: index
     }
 }

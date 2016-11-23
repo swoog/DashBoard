@@ -19,7 +19,7 @@ class BoardSetting extends Component{
 
 class Settings extends Component{
     createSprintBoard() {
-        this.props.dispatch(addSprintBoard(this.refs.name.value, this.refs.url.value, this.refs.project.value));
+        this.props.dispatch(addSprintBoard(this.refs.name.value, this.refs.url.value, this.refs.project.value, this.refs.patToken.value));
     }
     closeSettings() {
         this.props.dispatch(closeSettings());    
@@ -37,6 +37,7 @@ class Settings extends Component{
                     <input ref='name' type="text" />
                     <input ref='url' type="text" />
                     <input ref='project' type="text" />
+                    <input ref='patToken' type="text" />
                     <button onClick={this.createSprintBoard.bind(this)}>Add Sprint Board</button>
                     <div>
                        {boardsSettings}

@@ -25,12 +25,13 @@ var addTilesBoard = exports.addTilesBoard = function addTilesBoard(boardName) {
     };
 };
 
-var addSprintBoard = exports.addSprintBoard = function addSprintBoard(boardName, vstsUrl, vstsProject) {
+var addSprintBoard = exports.addSprintBoard = function addSprintBoard(boardName, vstsUrl, vstsProject, vstsPatToken) {
     return {
         type: "ADD_SPRINT_BOARD",
         name: boardName,
         url: vstsUrl,
-        project: vstsProject
+        project: vstsProject,
+        patToken: vstsPatToken
     };
 };
 

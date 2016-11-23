@@ -4753,12 +4753,13 @@
 	    };
 	};
 
-	var addSprintBoard = exports.addSprintBoard = function addSprintBoard(boardName, vstsUrl, vstsProject) {
+	var addSprintBoard = exports.addSprintBoard = function addSprintBoard(boardName, vstsUrl, vstsProject, vstsPatToken) {
 	    return {
 	        type: "ADD_SPRINT_BOARD",
 	        name: boardName,
 	        url: vstsUrl,
-	        project: vstsProject
+	        project: vstsProject,
+	        patToken: vstsPatToken
 	    };
 	};
 
@@ -13469,13 +13470,13 @@
 	Object.defineProperty(exports, "__esModule", {
 	    value: true
 	});
-	var myPatToken = 'olj6oc3rlwhnljmgclpq7554gvi2crag6qhpkiu2r7h4mqdgt7fq';
+	//var myPatToken = 'olj6oc3rlwhnljmgclpq7554gvi2crag6qhpkiu2r7h4mqdgt7fq';
 	//var myPatToken = 'nefoy4i2ilz4uhvlxx2yj4ttln2khclrr226dyl23zus3bbylkbq';
 	//var myPatToken = 'hzgmmfa4ndmzag3as2okohdhgjhj6fewaomtbqkcrgl7dnhvzpbq';
 
 	//httpChannel.setRequestHeader("Authorization", 'Basic ' + btoa("" + ":" + myPatToken), false);
 
-	var Service = exports.Service = function Service(url, service, success) {
+	var Service = exports.Service = function Service(url, myPatToken, service, success) {
 	    return $.ajax({
 	        url: url + '/defaultcollection' + service,
 	        dataType: 'json',
@@ -13486,7 +13487,7 @@
 	    });
 	};
 
-	var ServicePost = exports.ServicePost = function ServicePost(url, service, data, success) {
+	var ServicePost = exports.ServicePost = function ServicePost(url, myPatToken, service, data, success) {
 	    return $.ajax({
 	        url: url + '/DefaultCollection' + service,
 	        type: "POST",
@@ -44545,12 +44546,12 @@
 
 	var updateSprintService = function updateSprintService(board, dispatch) {
 	    function updateItems(items) {
-	        (0, _service.Service)(board.url, '/_apis/wit/WorkItems?ids=' + items + '&fields=System.Id,System.WorkItemType,System.Title,System.AssignedTo,System.State,System.IterationPath,Microsoft.VSTS.Scheduling.Effort,Microsoft.VSTS.Common.BacklogPriority&api-version=1.0', function (result) {
+	        (0, _service.Service)(board.url, board.patToken, '/_apis/wit/WorkItems?ids=' + items + '&fields=System.Id,System.WorkItemType,System.Title,System.AssignedTo,System.State,System.IterationPath,Microsoft.VSTS.Scheduling.Effort,Microsoft.VSTS.Common.BacklogPriority&api-version=1.0', function (result) {
 	            dispatch((0, _index.updateSprintBoard)(result));
 	        }.bind(this));
 	    };
 
-	    (0, _service.ServicePost)(board.url, '/' + board.project + '/_apis/wit/wiql?api-version=1.0', "{\"query\": \"Select [System.Id] FROM WorkItems WHERE [System.IterationPath] under '" + board.project + "' AND [System.WorkItemType] IN GROUP 'Microsoft.RequirementCategory' AND [System.WorkItemType] IN GROUP 'Microsoft.RequirementCategory' AND [System.State] IN ('New','Approved','Committed', 'Done')\"}", function (result) {
+	    (0, _service.ServicePost)(board.url, board.patToken, '/' + board.project + '/_apis/wit/wiql?api-version=1.0', "{\"query\": \"Select [System.Id] FROM WorkItems WHERE [System.IterationPath] under '" + board.project + "' AND [System.WorkItemType] IN GROUP 'Microsoft.RequirementCategory' AND [System.WorkItemType] IN GROUP 'Microsoft.RequirementCategory' AND [System.State] IN ('New','Approved','Committed', 'Done')\"}", function (result) {
 	        var workItems = result.workItems;
 	        updateItems(workItems.reduce(function (p, i) {
 	            return p + ',' + i.id;
@@ -44758,6 +44759,7 @@
 	                            type: 'SPRINT',
 	                            url: action.url,
 	                            project: action.project,
+	                            patToken: action.patToken,
 	                            sprints: [],
 	                            backLog: []
 	                        })
@@ -45118,7 +45120,7 @@
 	    _createClass(Settings, [{
 	        key: "createSprintBoard",
 	        value: function createSprintBoard() {
-	            this.props.dispatch((0, _actions.addSprintBoard)(this.refs.name.value, this.refs.url.value, this.refs.project.value));
+	            this.props.dispatch((0, _actions.addSprintBoard)(this.refs.name.value, this.refs.url.value, this.refs.project.value, this.refs.patToken.value));
 	        }
 	    }, {
 	        key: "closeSettings",
@@ -45144,6 +45146,7 @@
 	                _react2.default.createElement("input", { ref: "name", type: "text" }),
 	                _react2.default.createElement("input", { ref: "url", type: "text" }),
 	                _react2.default.createElement("input", { ref: "project", type: "text" }),
+	                _react2.default.createElement("input", { ref: "patToken", type: "text" }),
 	                _react2.default.createElement(
 	                    "button",
 	                    { onClick: this.createSprintBoard.bind(this) },

@@ -88,7 +88,7 @@ var Settings = function (_Component3) {
     _createClass(Settings, [{
         key: "createSprintBoard",
         value: function createSprintBoard() {
-            this.props.dispatch((0, _actions.addSprintBoard)(this.refs.name.value, this.refs.url.value, this.refs.project.value));
+            this.props.dispatch((0, _actions.addSprintBoard)(this.refs.name.value, this.refs.url.value, this.refs.project.value, this.refs.patToken.value));
         }
     }, {
         key: "closeSettings",
@@ -114,6 +114,7 @@ var Settings = function (_Component3) {
                 _react2.default.createElement("input", { ref: "name", type: "text" }),
                 _react2.default.createElement("input", { ref: "url", type: "text" }),
                 _react2.default.createElement("input", { ref: "project", type: "text" }),
+                _react2.default.createElement("input", { ref: "patToken", type: "text" }),
                 _react2.default.createElement(
                     "button",
                     { onClick: this.createSprintBoard.bind(this) },

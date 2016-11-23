@@ -13,12 +13,12 @@ var _service = require('../service');
 
 var updateSprintService = function updateSprintService(board, dispatch) {
     function updateItems(items) {
-        (0, _service.Service)(board.url, '/_apis/wit/WorkItems?ids=' + items + '&fields=System.Id,System.WorkItemType,System.Title,System.AssignedTo,System.State,System.IterationPath,Microsoft.VSTS.Scheduling.Effort,Microsoft.VSTS.Common.BacklogPriority&api-version=1.0', function (result) {
+        (0, _service.Service)(board.url, board.patToken, '/_apis/wit/WorkItems?ids=' + items + '&fields=System.Id,System.WorkItemType,System.Title,System.AssignedTo,System.State,System.IterationPath,Microsoft.VSTS.Scheduling.Effort,Microsoft.VSTS.Common.BacklogPriority&api-version=1.0', function (result) {
             dispatch((0, _index.updateSprintBoard)(result));
         }.bind(this));
     };
 
-    (0, _service.ServicePost)(board.url, '/' + board.project + '/_apis/wit/wiql?api-version=1.0', "{\"query\": \"Select [System.Id] FROM WorkItems WHERE [System.IterationPath] under '" + board.project + "' AND [System.WorkItemType] IN GROUP 'Microsoft.RequirementCategory' AND [System.WorkItemType] IN GROUP 'Microsoft.RequirementCategory' AND [System.State] IN ('New','Approved','Committed', 'Done')\"}", function (result) {
+    (0, _service.ServicePost)(board.url, board.patToken, '/' + board.project + '/_apis/wit/wiql?api-version=1.0', "{\"query\": \"Select [System.Id] FROM WorkItems WHERE [System.IterationPath] under '" + board.project + "' AND [System.WorkItemType] IN GROUP 'Microsoft.RequirementCategory' AND [System.WorkItemType] IN GROUP 'Microsoft.RequirementCategory' AND [System.State] IN ('New','Approved','Committed', 'Done')\"}", function (result) {
         var workItems = result.workItems;
         updateItems(workItems.reduce(function (p, i) {
             return p + ',' + i.id;

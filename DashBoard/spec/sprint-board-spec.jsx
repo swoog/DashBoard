@@ -5,12 +5,12 @@ describe('Sprint Boards',
     function() {     
         it('Add sprint board',
             function() {
-                var action = addSprintBoard('My board', 'http://', 'MyVSTSProject');
+                var action = addSprintBoard('My board', 'http://', 'MyVSTSProject', 'MyPATToken');
                 var state = {};
 
                 state = dashboardreducer(state, action);
 
-                expect(state).toEqual({ boards: [{ name: 'My board', url:'http://', project:'MyVSTSProject', type: 'SPRINT', sprints: [], backLog: [] }] });
+                expect(state).toEqual({ boards: [{ name: 'My board', url:'http://', project:'MyVSTSProject', patToken:'MyPATToken', type: 'SPRINT', sprints: [], backLog: [] }] });
             });
         it('Update Sprint board',
             function() {

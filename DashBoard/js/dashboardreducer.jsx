@@ -50,6 +50,7 @@ export const dashboardreducer = (state = { mode: 'SETTINGS'}, action) => {
                         type: 'SPRINT',
                         url: action.url,
                         project: action.project,
+                        patToken: action.patToken,
                         sprints: [],
                         backLog: []
                     }

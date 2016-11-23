@@ -106,6 +106,7 @@ var dashboardreducer = exports.dashboardreducer = function dashboardreducer() {
                             type: 'SPRINT',
                             url: action.url,
                             project: action.project,
+                            patToken: action.patToken,
                             sprints: [],
                             backLog: []
                         })
