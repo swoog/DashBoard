@@ -10,21 +10,9 @@ var _ReactDOM = require("react/lib/ReactDOM");
 
 var _ReactDOM2 = _interopRequireDefault(_ReactDOM);
 
-var _Tiles = require("./Tiles");
-
-var _Tiles2 = _interopRequireDefault(_Tiles);
-
 var _dashboardstore = require("./dashboardstore");
 
 var _dashboardstore2 = _interopRequireDefault(_dashboardstore);
-
-var _build = require("./services/build");
-
-var _build2 = _interopRequireDefault(_build);
-
-var _time = require("./services/time");
-
-var _time2 = _interopRequireDefault(_time);
 
 var _boards = require("./boards");
 
@@ -50,19 +38,8 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
 
 var dispatch = _dashboardstore2.default.dispatch;
 
-//dispatch(addBoard("Builds"));
-//dispatch(addSprintBoard("Sprint"));
-
-//addTimeTile(dispatch);
-//addBuildTile(dispatch, 7);
-//addBuildTile(dispatch, 6);
-//addBuildTile(dispatch, 20);
-
-//services.push(function(i) {
-//});
-
 var myTimer = function myTimer() {
-    dispatch((0, _services.runServices)());
+    dispatch((0, _services.runServices)(dispatch));
 };
 
 setInterval(myTimer, 2000);
@@ -77,6 +54,11 @@ var Main = function (_Component) {
     }
 
     _createClass(Main, [{
+        key: "editSettings",
+        value: function editSettings() {
+            _dashboardstore2.default.dispatch((0, _actions.gotoSettings)());
+        }
+    }, {
         key: "render",
         value: function render() {
             var state = _dashboardstore2.default.getState();
@@ -102,7 +84,16 @@ var Main = function (_Component) {
                         _react2.default.createElement(
                             "div",
                             { className: "header" },
-                            "DashBoard"
+                            "DashBoard",
+                            _react2.default.createElement(
+                                "div",
+                                null,
+                                _react2.default.createElement(
+                                    "button",
+                                    { onClick: this.editSettings.bind(this) },
+                                    "Edit Settings"
+                                )
+                            )
                         ),
                         _react2.default.createElement(_boards2.default, { data: state, dispatch: _dashboardstore2.default.dispatch })
                     );

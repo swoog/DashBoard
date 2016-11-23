@@ -1,5 +1,5 @@
 ﻿import {runServices} from '../js/actions/services'
-import {dashboardreducer} from '../js/dashboardstore'
+import {dashboardreducer} from '../js/dashboardreducer'
 
 describe('Service',
     function() {
@@ -18,7 +18,7 @@ describe('Service',
          function() {
              let objService = { service: () => {} };
              spyOn(objService, 'service');
-             var action = runServices(objService.service);
+             var action = runServices('dispatch', objService.service);
              var state = { boards: [{}] };
 
              state = dashboardreducer(state, action);
@@ -29,11 +29,11 @@ describe('Service',
          function() {
              let objService = { service: () => {} };
              spyOn(objService, 'service');
-             var action = runServices(objService.service);
+             var action = runServices('myDispatch', objService.service);
              var state = { boards: [{name:'My Board'}] };
 
              state = dashboardreducer(state, action);
 
-             expect(objService.service).toHaveBeenCalledWith({name:'My Board'});
+             expect(objService.service).toHaveBeenCalledWith({name:'My Board'}, 'myDispatch');
          });
     });

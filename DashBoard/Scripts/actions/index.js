@@ -25,11 +25,19 @@ var addTilesBoard = exports.addTilesBoard = function addTilesBoard(boardName) {
     };
 };
 
-var addSprintBoard = exports.addSprintBoard = function addSprintBoard(boardName, vstsUrl) {
+var addSprintBoard = exports.addSprintBoard = function addSprintBoard(boardName, vstsUrl, vstsProject) {
     return {
         type: "ADD_SPRINT_BOARD",
         name: boardName,
-        url: vstsUrl
+        url: vstsUrl,
+        project: vstsProject
+    };
+};
+
+var removeBoard = exports.removeBoard = function removeBoard(index) {
+    return {
+        type: "REMOVE_BOARD",
+        index: index
     };
 };
 

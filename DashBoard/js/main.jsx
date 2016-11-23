@@ -1,35 +1,24 @@
 ﻿import React, { Component, PropTypes } from "react"
 import ReactDOM from "react/lib/ReactDOM"
-import Tiles from "./Tiles"
 import Dashboardstore from './dashboardstore'
-import addBuildTile from './services/build'
-import addTimeTile from './services/time'
 import Boards  from './boards'
 import Settings  from './settings'
-import {addBoard, addSprintBoard, updateSprintBoard} from './actions'
+import {addBoard, addSprintBoard, updateSprintBoard, gotoSettings} from './actions'
 import {runServices} from './actions/services'
 import {Service, ServicePost} from "./service"
 
 var dispatch = Dashboardstore.dispatch;
 
-//dispatch(addBoard("Builds"));
-//dispatch(addSprintBoard("Sprint"));
-
-//addTimeTile(dispatch);
-//addBuildTile(dispatch, 7);
-//addBuildTile(dispatch, 6);
-//addBuildTile(dispatch, 20);
-
-//services.push(function(i) {
-//});
-
 const myTimer = () => {
-    dispatch(runServices());
+    dispatch(runServices(dispatch));
 }
 
 setInterval(myTimer, 2000);
 
 class Main extends Component{
+    editSettings() {
+        Dashboardstore.dispatch(gotoSettings());
+    }
     render () {
         var state = Dashboardstore.getState();
         console.log('State : ');
@@ -50,6 +39,9 @@ class Main extends Component{
                     <div>
                         <div className="header">
                             DashBoard
+                    <div>
+                            <button onClick={this.editSettings.bind(this)}>Edit Settings</button>
+                    </div>
                         </div>
                         <Boards data={state} dispatch={Dashboardstore.dispatch} />
                     </div>

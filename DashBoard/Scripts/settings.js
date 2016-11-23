@@ -34,12 +34,22 @@ var SprintBoardSetting = function (_Component) {
     }
 
     _createClass(SprintBoardSetting, [{
+        key: "removeBoard",
+        value: function removeBoard() {
+            this.props.dispatch((0, _actions.removeBoard)(this.props.index));
+        }
+    }, {
         key: "render",
         value: function render() {
             return _react2.default.createElement(
                 "div",
                 null,
-                this.props.data.name
+                this.props.data.name,
+                _react2.default.createElement(
+                    "button",
+                    { onClick: this.removeBoard.bind(this) },
+                    "Remove"
+                )
             );
         }
     }]);
@@ -59,7 +69,7 @@ var BoardSetting = function (_Component2) {
     _createClass(BoardSetting, [{
         key: "render",
         value: function render() {
-            return _react2.default.createElement(SprintBoardSetting, { data: this.props.data });
+            return _react2.default.createElement(SprintBoardSetting, { dispatch: this.props.dispatch, index: this.props.index, data: this.props.data });
         }
     }]);
 
@@ -78,7 +88,7 @@ var Settings = function (_Component3) {
     _createClass(Settings, [{
         key: "createSprintBoard",
         value: function createSprintBoard() {
-            this.props.dispatch((0, _actions.addSprintBoard)(this.refs.name.value, this.refs.name.url));
+            this.props.dispatch((0, _actions.addSprintBoard)(this.refs.name.value, this.refs.url.value, this.refs.project.value));
         }
     }, {
         key: "closeSettings",
@@ -88,11 +98,13 @@ var Settings = function (_Component3) {
     }, {
         key: "render",
         value: function render() {
+            var _this4 = this;
+
             var boardsSettings = [];
             if (this.props.data.boards != null) {
                 var i = 0;
                 boardsSettings = this.props.data.boards.map(function (b) {
-                    return _react2.default.createElement(BoardSetting, { key: i++, data: b });
+                    return _react2.default.createElement(BoardSetting, { key: i, data: b, dispatch: _this4.props.dispatch, index: i++ });
                 });
             }
             return _react2.default.createElement(
@@ -101,6 +113,7 @@ var Settings = function (_Component3) {
                 "VSTS Project :",
                 _react2.default.createElement("input", { ref: "name", type: "text" }),
                 _react2.default.createElement("input", { ref: "url", type: "text" }),
+                _react2.default.createElement("input", { ref: "project", type: "text" }),
                 _react2.default.createElement(
                     "button",
                     { onClick: this.createSprintBoard.bind(this) },

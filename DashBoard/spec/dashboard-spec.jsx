@@ -1,5 +1,5 @@
-﻿import {addTilesBoard, addTile, addSprintBoard, updateSprintBoard} from '../js/actions'
-import {dashboardreducer} from '../js/dashboardstore'
+﻿import {addTilesBoard, addTile, addSprintBoard, updateSprintBoard, removeBoard} from '../js/actions'
+import {dashboardreducer} from '../js/dashboardreducer'
 
 describe('Tile board',
     function() {
@@ -12,6 +12,15 @@ describe('Tile board',
 
              expect(state).toEqual({ boards: [{ name: 'My board', tiles: [] }] });
          });
+        it('Remove board',
+            () => {
+                var action = removeBoard(0);
+                var state = { boards: [{name:'My board'}] };
+                
+                state = dashboardreducer(state, action);
+
+                expect(state).toEqual({ boards: [] });                
+            })
         it('Add a second board',
             function() {
                 var action = addTilesBoard('My board 2');

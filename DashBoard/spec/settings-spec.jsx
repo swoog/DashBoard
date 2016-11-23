@@ -1,5 +1,5 @@
 ﻿import {closeSettings, gotoSettings} from '../js/actions'
-import {dashboardreducer} from '../js/dashboardstore'
+import {dashboardreducer} from '../js/dashboardreducer'
 
 describe('Settings',
     function() {

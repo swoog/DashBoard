@@ -30,6 +30,13 @@ export const addSprintBoard = (boardName, vstsUrl, vstsProject) => {
     }
 }
 
+export const removeBoard = (index) => {
+    return {
+        type:"REMOVE_BOARD",
+        index: index
+    }
+}
+
 export const updateSprintBoard = (data) => {
     return {
         type:"UPDATE_SPRINT_BOARD",

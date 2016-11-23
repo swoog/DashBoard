@@ -1,16 +1,19 @@
 ﻿import linkState from 'react-link-state';
 import React, { Component, PropTypes } from "react";
-import {addSprintBoard, closeSettings} from "./actions";
+import {addSprintBoard, closeSettings, removeBoard} from "./actions";
 
 class SprintBoardSetting extends Component{
+    removeBoard() {
+        this.props.dispatch(removeBoard(this.props.index));    
+    }
     render() {
-        return (<div>{this.props.data.name}</div>);
+        return (<div>{this.props.data.name}<button onClick={this.removeBoard.bind(this)}>Remove</button></div>);
     }
 }
 
 class BoardSetting extends Component{
     render() {
-        return (<SprintBoardSetting data={this.props.data} />);
+        return (<SprintBoardSetting dispatch={this.props.dispatch} index={this.props.index} data={this.props.data} />);
     }
 }
 
@@ -26,7 +29,7 @@ class Settings extends Component{
         if (this.props.data.boards != null) {
             var i = 0;
             boardsSettings = this.props.data.boards.map(b => {
-                return <BoardSetting key={i++} data={b} />;
+                return <BoardSetting key={i} data={b} dispatch={this.props.dispatch} index={i++} />;
             });
         }
         return (<div>

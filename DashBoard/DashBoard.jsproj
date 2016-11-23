@@ -71,6 +71,7 @@
     <Content Include="images\Wide310x150Logo.scale-200.png" />
     <Content Include="js\actions\index.jsx" />
     <Content Include="js\actions\services.jsx" />
+    <Content Include="js\dashboardreducer.jsx" />
     <Content Include="js\dashboardstore.jsx" />
     <Content Include="js\service.jsx" />
     <Content Include="js\services\time.jsx" />

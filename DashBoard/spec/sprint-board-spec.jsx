@@ -1,5 +1,5 @@
 ﻿import {addTilesBoard, addTile, addSprintBoard, updateSprintBoard} from '../js/actions'
-import {dashboardreducer} from '../js/dashboardstore'
+import {dashboardreducer} from '../js/dashboardreducer'
 
 describe('Sprint Boards',
     function() {     
