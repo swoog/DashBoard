@@ -48,6 +48,10 @@ var dashboardreducer = exports.dashboardreducer = function dashboardreducer() {
 
     var _ret = function () {
         switch (action.type) {
+            case "SELECT_BOARD":
+                return {
+                    v: (0, _lodash.merge)(state, { selectedBoard: action.index })
+                };
             case "RUN_SERVICES":
                 if (state.boards) {
                     var _iteratorNormalCompletion = true;

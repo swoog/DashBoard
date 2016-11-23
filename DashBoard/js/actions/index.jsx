@@ -56,3 +56,10 @@ export const gotoSettings= () => {
         type:"GOTO_SETTINGS"
     }
 }
+
+export const selectBoard= (index) => {
+    return {
+        type: "SELECT_BOARD",
+        index: index
+    }
+}

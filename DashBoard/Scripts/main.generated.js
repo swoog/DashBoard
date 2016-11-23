@@ -4789,6 +4789,13 @@
 	    };
 	};
 
+	var selectBoard = exports.selectBoard = function selectBoard(index) {
+	    return {
+	        type: "SELECT_BOARD",
+	        index: index
+	    };
+	};
+
 /***/ },
 /* 50 */
 /***/ function(module, exports, __webpack_require__) {
@@ -44701,6 +44708,10 @@
 
 	    var _ret = function () {
 	        switch (action.type) {
+	            case "SELECT_BOARD":
+	                return {
+	                    v: (0, _lodash.merge)(state, { selectedBoard: action.index })
+	                };
 	            case "RUN_SERVICES":
 	                if (state.boards) {
 	                    var _iteratorNormalCompletion = true;
@@ -44962,6 +44973,11 @@
 	    }
 
 	    _createClass(Main, [{
+	        key: "selectBoard",
+	        value: function selectBoard() {
+	            _dashboardstore2.default.dispatch((0, _actions.selectBoard)(this));
+	        }
+	    }, {
 	        key: "editSettings",
 	        value: function editSettings() {
 	            _dashboardstore2.default.dispatch((0, _actions.gotoSettings)());
@@ -44969,6 +44985,8 @@
 	    }, {
 	        key: "render",
 	        value: function render() {
+	            var _this2 = this;
+
 	            var state = _dashboardstore2.default.getState();
 	            console.log('State : ');
 	            console.log(state);
@@ -44986,6 +45004,14 @@
 	                        _react2.default.createElement(_settings2.default, { data: state, dispatch: _dashboardstore2.default.dispatch })
 	                    );
 	                case 'DASHBOARD':
+	                    var i = 0;
+	                    var boardsButton = state.boards.map(function (b) {
+	                        return _react2.default.createElement(
+	                            "button",
+	                            { key: i, onClick: _this2.selectBoard.bind(i++) },
+	                            b.name
+	                        );
+	                    });
 	                    return _react2.default.createElement(
 	                        "div",
 	                        null,
@@ -45001,7 +45027,8 @@
 	                                    { onClick: this.editSettings.bind(this) },
 	                                    "Edit Settings"
 	                                )
-	                            )
+	                            ),
+	                            boardsButton
 	                        ),
 	                        _react2.default.createElement(_boards2.default, { data: state, dispatch: _dashboardstore2.default.dispatch })
 	                    );

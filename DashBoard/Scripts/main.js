@@ -54,6 +54,11 @@ var Main = function (_Component) {
     }
 
     _createClass(Main, [{
+        key: "selectBoard",
+        value: function selectBoard() {
+            _dashboardstore2.default.dispatch((0, _actions.selectBoard)(this));
+        }
+    }, {
         key: "editSettings",
         value: function editSettings() {
             _dashboardstore2.default.dispatch((0, _actions.gotoSettings)());
@@ -61,6 +66,8 @@ var Main = function (_Component) {
     }, {
         key: "render",
         value: function render() {
+            var _this2 = this;
+
             var state = _dashboardstore2.default.getState();
             console.log('State : ');
             console.log(state);
@@ -78,6 +85,14 @@ var Main = function (_Component) {
                         _react2.default.createElement(_settings2.default, { data: state, dispatch: _dashboardstore2.default.dispatch })
                     );
                 case 'DASHBOARD':
+                    var i = 0;
+                    var boardsButton = state.boards.map(function (b) {
+                        return _react2.default.createElement(
+                            "button",
+                            { key: i, onClick: _this2.selectBoard.bind(i++) },
+                            b.name
+                        );
+                    });
                     return _react2.default.createElement(
                         "div",
                         null,
@@ -93,7 +108,8 @@ var Main = function (_Component) {
                                     { onClick: this.editSettings.bind(this) },
                                     "Edit Settings"
                                 )
-                            )
+                            ),
+                            boardsButton
                         ),
                         _react2.default.createElement(_boards2.default, { data: state, dispatch: _dashboardstore2.default.dispatch })
                     );

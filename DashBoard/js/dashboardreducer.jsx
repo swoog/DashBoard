@@ -20,6 +20,8 @@ export const dashboardreducer = (state = { mode: 'SETTINGS'}, action) => {
         boards = [];
     }
     switch (action.type) {
+        case "SELECT_BOARD":
+            return merge(state, { selectedBoard: action.index });
         case "RUN_SERVICES":
             if (state.boards) {
                 for (var board of state.boards) {

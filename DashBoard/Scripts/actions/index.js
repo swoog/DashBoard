@@ -60,3 +60,10 @@ var gotoSettings = exports.gotoSettings = function gotoSettings() {
         type: "GOTO_SETTINGS"
     };
 };
+
+var selectBoard = exports.selectBoard = function selectBoard(index) {
+    return {
+        type: "SELECT_BOARD",
+        index: index
+    };
+};
