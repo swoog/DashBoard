@@ -5,12 +5,12 @@ describe('Sprint Boards',
     function() {     
         it('Add sprint board',
             function() {
-                var action = addSprintBoard('My board', 'http://');
+                var action = addSprintBoard('My board', 'http://', 'MyVSTSProject');
                 var state = {};
 
                 state = dashboardreducer(state, action);
 
-                expect(state).toEqual({ boards: [{ name: 'My board', url:'http://', type: 'SPRINT', sprints: [], backLog: [] }] });
+                expect(state).toEqual({ boards: [{ name: 'My board', url:'http://', project:'MyVSTSProject', type: 'SPRINT', sprints: [], backLog: [] }] });
             });
         it('Update Sprint board',
             function() {
@@ -76,33 +76,35 @@ describe('Sprint Boards',
                 };
 
                 var action = updateSprintBoard(data);
-                var state = dashboardreducer([{ name: 'My board', type: 'SPRINT' }], action);
+                var state = dashboardreducer({ boards: [{ name: 'My board', type: 'SPRINT' }] }, action);
                 expect(state)
-                    .toEqual([
-                        {
-                            name: 'My board',
-                            type: 'SPRINT',
-                            sprints: [
-                                {
-                                    name: 'Sprint 1',
-                                    effort: 2,
-                                    sprintLog: [
-                                        { id: 524, title: 'Se déconnecte', effort: 1, state: 'New' },
-                                    { id: 523, title: 'Se déconnecte', effort: 1, state: 'Done' }
-                                    ]
-                                }
-                            ],
-                            backLog: [
-                                { id: 569, title: 'Ajoute une alerte depuis l\'agenda', effort: 1, state: 'New' },
-                                {
-                                    id: 568,
-                                    title: 'Affiche le détail d\'un rendez-vous ou alerte sur une page scannée',
-                                    effort: 3,
-                                    state: 'New'
-                                }
-                            ]
-                        }
-                    ]);
+                    .toEqual({
+                        boards: [
+                            {
+                                name: 'My board',
+                                type: 'SPRINT',
+                                sprints: [
+                                    {
+                                        name: 'Sprint 1',
+                                        effort: 2,
+                                        sprintLog: [
+                                            { id: 524, title: 'Se déconnecte', effort: 1, state: 'New' },
+                                            { id: 523, title: 'Se déconnecte', effort: 1, state: 'Done' }
+                                        ]
+                                    }
+                                ],
+                                backLog: [
+                                    { id: 569, title: 'Ajoute une alerte depuis l\'agenda', effort: 1, state: 'New' },
+                                    {
+                                        id: 568,
+                                        title: 'Affiche le détail d\'un rendez-vous ou alerte sur une page scannée',
+                                        effort: 3,
+                                        state: 'New'
+                                    }
+                                ]
+                            }
+                        ]
+                    });
 
             });
         it('Update an ordered Sprint board',
@@ -154,39 +156,41 @@ describe('Sprint Boards',
                 };
 
                 var action = updateSprintBoard(data);
-                var state = dashboardreducer([{ name: 'My board', type: 'SPRINT' }], action);
+                var state = dashboardreducer({ boards: [{ name: 'My board', type: 'SPRINT' }] }, action);
                 expect(state)
-                    .toEqual([
-                        {
-                            name: 'My board',
-                            type: 'SPRINT',
-                            sprints: [
-                                {
-                                    name: 'Sprint 1',
-                                    effort: 0,
-                                    sprintLog: [
-                                        { id: 1, title: '', effort: 0, state:'New' }
-                                    ]
-                                },
-                                {
-                                    name: 'Sprint 2',
-                                    effort: 0,
-                                    sprintLog: [
-                                        { id: 2, title: '', effort: 0, state:'New' }
-                                    ]
-                                },
-                                {
-                                    name: 'Sprint 10',
-                                    effort: 0,
-                                    sprintLog: [
-                                        { id: 3, title: '', effort: 0, state:'New' }
-                                    ]
-                                }
-                            ],
-                            backLog: [
-                            ]
-                        }
-                    ]);
+                    .toEqual({
+                        boards: [
+                            {
+                                name: 'My board',
+                                type: 'SPRINT',
+                                sprints: [
+                                    {
+                                        name: 'Sprint 1',
+                                        effort: 0,
+                                        sprintLog: [
+                                            { id: 1, title: '', effort: 0, state: 'New' }
+                                        ]
+                                    },
+                                    {
+                                        name: 'Sprint 2',
+                                        effort: 0,
+                                        sprintLog: [
+                                            { id: 2, title: '', effort: 0, state: 'New' }
+                                        ]
+                                    },
+                                    {
+                                        name: 'Sprint 10',
+                                        effort: 0,
+                                        sprintLog: [
+                                            { id: 3, title: '', effort: 0, state: 'New' }
+                                        ]
+                                    }
+                                ],
+                                backLog: [
+                                ]
+                            }
+                        ]
+                    });
 
             });
         it('Update a Sprint board and remove sprint done',
@@ -224,16 +228,18 @@ describe('Sprint Boards',
         };
 
         var action = updateSprintBoard(data);
-        var state = dashboardreducer([{ name: 'My board', type: 'SPRINT' }], action);
+        var state = dashboardreducer({ boards: [{ name: 'My board', type: 'SPRINT' }] }, action);
         expect(state)
-            .toEqual([
-                {
-                    name: 'My board',
-                    type: 'SPRINT',
-                    sprints: [],
-                    backLog: []
-                }
-            ]);
+            .toEqual({
+                boards: [
+                    {
+                        name: 'My board',
+                        type: 'SPRINT',
+                        sprints: [],
+                        backLog: []
+                    }
+                ]
+            }   );
 
     });
 

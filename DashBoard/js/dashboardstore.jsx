@@ -1,4 +1,5 @@
-﻿import { createStore } from 'redux'
+﻿import { createStore, applyMiddleware, combineReducers} from 'redux'
+import {persistStore, autoRehydrate} from 'redux-persist'
 
 import { merge, fill, remove } from 'lodash'
 
@@ -19,6 +20,14 @@ export const dashboardreducer = (state = { mode: 'SETTINGS'}, action) => {
         boards = [];
     }
     switch (action.type) {
+        case "RUN_SERVICES":
+            if (state.boards) {
+                for (var board of state.boards) {
+                    action.updateSprint(board);
+                }
+            }
+
+            return state;
         case "GOTO_SETTINGS":
             return merge(state, { mode: 'SETTINGS' });
         case "CLOSE_SETTINGS":
@@ -30,7 +39,14 @@ export const dashboardreducer = (state = { mode: 'SETTINGS'}, action) => {
             return merge(state,
             {
                 boards: add(boards,
-                    { name: action.name, type: 'SPRINT', url: action.url, sprints: [], backLog: [] }
+                    {
+                        name: action.name,
+                        type: 'SPRINT',
+                        url: action.url,
+                        project: action.project,
+                        sprints: [],
+                        backLog: []
+                    }
                 )
             });
         case "UPDATE_TILE":
@@ -57,8 +73,8 @@ export const dashboardreducer = (state = { mode: 'SETTINGS'}, action) => {
                     return grouped;
                 }, {});
             }
-            var index = state.findIndex(b => b.type === 'SPRINT');
-            var board = state[index];
+            var index = state.boards.findIndex(b => b.type === 'SPRINT');
+            var board = state.boards[index];
             var backLogs = action.data.value.sort(function(a, b) {
                 return a.fields['Microsoft.VSTS.Common.BacklogPriority'] - b.fields['Microsoft.VSTS.Common.BacklogPriority'];
             });
@@ -97,7 +113,7 @@ export const dashboardreducer = (state = { mode: 'SETTINGS'}, action) => {
             var backLogsItems = backLogs.filter(v => v.fields["System.IterationPath"].indexOf('\\') === -1).map(convertToBackLogItem);
 
             board = merge(board, { sprints: sprints, backLog: backLogsItems });
-            return fill(state, board, index);
+            return merge(state, { boards: fill(state.boards, board, index) });
         default:
             return state;
     }
@@ -112,4 +128,9 @@ function convertToBackLogItem(b) {
     }
 }
 
-export default createStore(dashboardreducer);
+const store = createStore(dashboardreducer, undefined, autoRehydrate());
+
+persistStore(store, {}, (err, state)=> console.log(state));
+//store.subscribe(()=> persistStore(store));
+export default store;
+//export default createStore(dashboardreducer);

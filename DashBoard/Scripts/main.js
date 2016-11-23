@@ -36,6 +36,8 @@ var _settings2 = _interopRequireDefault(_settings);
 
 var _actions = require("./actions");
 
+var _services = require("./actions/services");
+
 var _service = require("./service");
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
@@ -56,27 +58,11 @@ var dispatch = _dashboardstore2.default.dispatch;
 //addBuildTile(dispatch, 6);
 //addBuildTile(dispatch, 20);
 
-var services = [];
 //services.push(function(i) {
-//    function updateItems(items) {
-//        Service('/_apis/wit/WorkItems?ids=' +
-//            items + '&fields=System.Id,System.WorkItemType,System.Title,System.AssignedTo,System.State,System.IterationPath,Microsoft.VSTS.Scheduling.Effort,Microsoft.VSTS.Common.BacklogPriority&api-version=1.0',
-//            function(result) {
-//                dispatch(updateSprintBoard(result));
-//            }.bind(this));
-//    };
-
-//    ServicePost('/Neobd-Git/_apis/wit/wiql?api-version=1.0', "{\"query\": \"Select [System.Id] FROM WorkItems WHERE [System.IterationPath] under 'Neobd-Git' AND [System.WorkItemType] IN GROUP 'Microsoft.RequirementCategory' AND [System.WorkItemType] IN GROUP 'Microsoft.RequirementCategory' AND [System.State] IN ('New','Approved','Committed', 'Done')\"}", function(result) {
-//        var workItems = result.workItems;
-//        updateItems(workItems.reduce(function(p, i) { return p + ',' + i.id; }, '').substr(1));
-//    }.bind(this));
 //});
 
 var myTimer = function myTimer() {
-    var datas = services;
-    for (var i = 0; i < datas.length; i++) {
-        services[i](i);
-    }
+    dispatch((0, _services.runServices)());
 };
 
 setInterval(myTimer, 2000);

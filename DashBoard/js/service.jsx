@@ -1,11 +1,12 @@
 ﻿//var myPatToken = 'olj6oc3rlwhnljmgclpq7554gvi2crag6qhpkiu2r7h4mqdgt7fq';
-var myPatToken = 'nefoy4i2ilz4uhvlxx2yj4ttln2khclrr226dyl23zus3bbylkbq';
+//var myPatToken = 'nefoy4i2ilz4uhvlxx2yj4ttln2khclrr226dyl23zus3bbylkbq';
+var myPatToken = 'hzgmmfa4ndmzag3as2okohdhgjhj6fewaomtbqkcrgl7dnhvzpbq';
 
 //httpChannel.setRequestHeader("Authorization", 'Basic ' + btoa("" + ":" + myPatToken), false);
 
-export const Service = function(service, success) {
+export const Service = function(url, service, success) {
     return $.ajax({
-        url: 'https://neobd.visualstudio.com/defaultcollection' + service,
+        url: url + '/defaultcollection' + service,
         dataType: 'json',
         headers: {
             'Authorization': 'Basic ' + btoa("" + ":" + myPatToken)
@@ -14,11 +15,11 @@ export const Service = function(service, success) {
     });
 };
 
-export const ServicePost = function(service, data, success){
+export const ServicePost = function(url, service, data, success) {
     return $.ajax({
-        url:'https://neobd.visualstudio.com/DefaultCollection' + service,       
+        url: url + '/DefaultCollection' + service,
         type: "POST",
-        contentType:'application/json',
+        contentType: 'application/json',
         dataType: 'json',
         data: data,
         headers: {

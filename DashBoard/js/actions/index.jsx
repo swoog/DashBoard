@@ -21,11 +21,12 @@ export const addTilesBoard = (boardName) => {
     }
 }
 
-export const addSprintBoard = (boardName, vstsUrl) => {
+export const addSprintBoard = (boardName, vstsUrl, vstsProject) => {
     return {
         type:"ADD_SPRINT_BOARD",
         name: boardName,
-        url: vstsUrl
+        url: vstsUrl,
+        project: vstsProject
     }
 }
 

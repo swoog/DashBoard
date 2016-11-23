@@ -16,7 +16,7 @@ class BoardSetting extends Component{
 
 class Settings extends Component{
     createSprintBoard() {
-        this.props.dispatch(addSprintBoard(this.refs.name.value, this.refs.name.url));
+        this.props.dispatch(addSprintBoard(this.refs.name.value, this.refs.url.value, this.refs.project.value));
     }
     closeSettings() {
         this.props.dispatch(closeSettings());    
@@ -33,6 +33,7 @@ class Settings extends Component{
                     VSTS Project :
                     <input ref='name' type="text" />
                     <input ref='url' type="text" />
+                    <input ref='project' type="text" />
                     <button onClick={this.createSprintBoard.bind(this)}>Add Sprint Board</button>
                     <div>
                        {boardsSettings}
