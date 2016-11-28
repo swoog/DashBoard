@@ -193,6 +193,7 @@ var dashboardreducer = exports.dashboardreducer = function dashboardreducer() {
                 }).map(convertToBackLogItem);
 
 
+                board = (0, _lodash.merge)(board, { sprints: null, backLog: null });
                 board = (0, _lodash.merge)(board, { sprints: sprints, backLog: backLogsItems });
                 return {
                     v: (0, _lodash.merge)(state, { boards: (0, _lodash.fill)(state.boards, board, index) })

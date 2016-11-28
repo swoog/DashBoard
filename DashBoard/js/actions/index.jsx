@@ -38,10 +38,11 @@ export const removeBoard = (index) => {
     }
 }
 
-export const updateSprintBoard = (data) => {
+export const updateSprintBoard = (data, index) => {
     return {
         type:"UPDATE_SPRINT_BOARD",
-        data: data
+        data: data,
+        index: index
     }
 }
 

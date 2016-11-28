@@ -82,7 +82,7 @@ export const dashboardreducer = (state = { mode: 'SETTINGS'}, action) => {
                     return grouped;
                 }, {});
             }
-            var index = state.boards.findIndex(b => b.type === 'SPRINT');
+            var index = action.index;
             var board = state.boards[index];
             var backLogs = action.data.value.sort(function(a, b) {
                 return a.fields['Microsoft.VSTS.Common.BacklogPriority'] - b.fields['Microsoft.VSTS.Common.BacklogPriority'];
@@ -121,6 +121,7 @@ export const dashboardreducer = (state = { mode: 'SETTINGS'}, action) => {
 
             var backLogsItems = backLogs.filter(v => v.fields["System.IterationPath"].indexOf('\\') === -1).map(convertToBackLogItem);
 
+            board = merge(board, { sprints: null, backLog: null });
             board = merge(board, { sprints: sprints, backLog: backLogsItems });
             return merge(state, { boards: fill(state.boards, board, index) });
         default:

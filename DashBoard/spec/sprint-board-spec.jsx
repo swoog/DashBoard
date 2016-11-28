@@ -75,7 +75,7 @@ describe('Sprint Boards',
                     ]
                 };
 
-                var action = updateSprintBoard(data);
+                var action = updateSprintBoard(data,  0);
                 var state = dashboardreducer({ boards: [{ name: 'My board', type: 'SPRINT' }] }, action);
                 expect(state)
                     .toEqual({
@@ -155,7 +155,7 @@ describe('Sprint Boards',
                     ]
                 };
 
-                var action = updateSprintBoard(data);
+                var action = updateSprintBoard(data,  0);
                 var state = dashboardreducer({ boards: [{ name: 'My board', type: 'SPRINT' }] }, action);
                 expect(state)
                     .toEqual({
@@ -227,7 +227,7 @@ describe('Sprint Boards',
             ]
         };
 
-        var action = updateSprintBoard(data);
+        var action = updateSprintBoard(data,  0);
         var state = dashboardreducer({ boards: [{ name: 'My board', type: 'SPRINT' }] }, action);
         expect(state)
             .toEqual({
@@ -242,5 +242,4 @@ describe('Sprint Boards',
             }   );
 
     });
-
-    });
+});
