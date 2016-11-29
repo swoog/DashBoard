@@ -2,14 +2,14 @@
 import {Service, ServicePost} from "../service"
 //import Dashboardstore from '../dashboardstore'
 
-const updateSprintService = (board, dispatch) => {
+const updateSprintService = (board, boardIndex, dispatch) => {
     function updateItems(items) {
         Service(board.url,
             board.patToken,
             '/_apis/wit/WorkItems?ids=' +
             items + '&fields=System.Id,System.WorkItemType,System.Title,System.AssignedTo,System.State,System.IterationPath,Microsoft.VSTS.Scheduling.Effort,Microsoft.VSTS.Common.BacklogPriority&api-version=1.0',
             function(result) {
-                dispatch(updateSprintBoard(result));
+                dispatch(updateSprintBoard(result, boardIndex));
             }.bind(this));
     };
 

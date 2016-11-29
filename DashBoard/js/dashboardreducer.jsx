@@ -24,8 +24,9 @@ export const dashboardreducer = (state = { mode: 'SETTINGS'}, action) => {
             return merge(state, { selectedBoard: action.index });
         case "RUN_SERVICES":
             if (state.boards) {
+                var i = 0;
                 for (var board of state.boards) {
-                    action.updateSprint(board, action.dispatch);
+                    action.updateSprint(board, i++, action.dispatch);
                 }
             }
 
@@ -100,7 +101,6 @@ export const dashboardreducer = (state = { mode: 'SETTINGS'}, action) => {
                     sprint.effort = sprint.sprintLog.reduce(function(v, l) { return v + l.effort }, 0);
 
                     sprints.push(sprint);
-
                 }
             }
 
@@ -123,7 +123,7 @@ export const dashboardreducer = (state = { mode: 'SETTINGS'}, action) => {
 
             board = merge(board, { sprints: null, backLog: null });
             board = merge(board, { sprints: sprints, backLog: backLogsItems });
-            return merge(state, { boards: fill(state.boards, board, index) });
+            return merge(state, { boards: fill(state.boards, board, index, 1) });
         default:
             return state;
     }

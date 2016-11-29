@@ -242,4 +242,110 @@ describe('Sprint Boards',
             }   );
 
     });
+        it('Update the second Sprint board',
+function() {
+    var data = {
+        "count": 3,
+        "value": [
+          {
+              "id": 1,
+              "rev": 12,
+              "fields": {
+                  "System.Id": 1,
+                  "System.IterationPath": "Wanapp\\Sprint 1",
+                  "System.WorkItemType": "Product Backlog Item",
+                  "System.State": "Done",
+                  "System.Title": "",
+                  "Microsoft.VSTS.Scheduling.Effort": 0,
+                  "Microsoft.VSTS.Common.BacklogPriority": 0
+              }
+          },
+          {
+              "id": 2,
+              "rev": 12,
+              "fields": {
+                  "System.Id": 2,
+                  "System.IterationPath": "Wanapp\\Sprint 1",
+                  "System.WorkItemType": "Product Backlog Item",
+                  "System.State": "Done",
+                  "System.Title": "",
+                  "Microsoft.VSTS.Scheduling.Effort": 0,
+                  "Microsoft.VSTS.Common.BacklogPriority": 0
+              }
+          }
+        ]
+    };
+
+    var action = updateSprintBoard(data,  1);
+    var state = dashboardreducer({ boards: [{ name: 'My board', type: 'SPRINT' }, { name: 'My board2', type: 'SPRINT' }] }, action);
+    expect(state)
+        .toEqual({
+            boards: [
+                {
+                    name: 'My board',
+                    type: 'SPRINT'
+                },
+                  {
+                      name: 'My board2',
+                      type: 'SPRINT',
+                      sprints: [],
+                      backLog: []
+                  }
+            ]
+        }   );
+
 });
+        it('Update the first Sprint board',
+function() {
+    var data = {
+        "count": 3,
+        "value": [
+          {
+              "id": 1,
+              "rev": 12,
+              "fields": {
+                  "System.Id": 1,
+                  "System.IterationPath": "Wanapp\\Sprint 1",
+                  "System.WorkItemType": "Product Backlog Item",
+                  "System.State": "Done",
+                  "System.Title": "",
+                  "Microsoft.VSTS.Scheduling.Effort": 0,
+                  "Microsoft.VSTS.Common.BacklogPriority": 0
+              }
+          },
+          {
+              "id": 2,
+              "rev": 12,
+              "fields": {
+                  "System.Id": 2,
+                  "System.IterationPath": "Wanapp\\Sprint 1",
+                  "System.WorkItemType": "Product Backlog Item",
+                  "System.State": "Done",
+                  "System.Title": "",
+                  "Microsoft.VSTS.Scheduling.Effort": 0,
+                  "Microsoft.VSTS.Common.BacklogPriority": 0
+              }
+          }
+        ]
+    };
+
+    var action = updateSprintBoard(data,  0);
+    var state = dashboardreducer({ boards: [{ name: 'My board', type: 'SPRINT' }, { name: 'My board2', type: 'SPRINT' }] }, action);
+    expect(state)
+        .toEqual({
+            boards: [
+                {
+                    name: 'My board',
+                    type: 'SPRINT',
+                    sprints: [],
+                    backLog: []
+                },
+                  {
+                      name: 'My board2',
+                      type: 'SPRINT'
+                  }
+            ]
+        }   );
+
+});
+    });

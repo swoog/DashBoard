@@ -42,10 +42,11 @@ var removeBoard = exports.removeBoard = function removeBoard(index) {
     };
 };
 
-var updateSprintBoard = exports.updateSprintBoard = function updateSprintBoard(data) {
+var updateSprintBoard = exports.updateSprintBoard = function updateSprintBoard(data, index) {
     return {
         type: "UPDATE_SPRINT_BOARD",
-        data: data
+        data: data,
+        index: index
     };
 };
 

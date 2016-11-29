@@ -34,6 +34,6 @@ describe('Service',
 
              state = dashboardreducer(state, action);
 
-             expect(objService.service).toHaveBeenCalledWith({name:'My Board'}, 'myDispatch');
+             expect(objService.service).toHaveBeenCalledWith({name:'My Board'}, 0, 'myDispatch');
          });
     });

@@ -11,10 +11,10 @@ var _service = require('../service');
 
 //import Dashboardstore from '../dashboardstore'
 
-var updateSprintService = function updateSprintService(board, dispatch) {
+var updateSprintService = function updateSprintService(board, boardIndex, dispatch) {
     function updateItems(items) {
         (0, _service.Service)(board.url, board.patToken, '/_apis/wit/WorkItems?ids=' + items + '&fields=System.Id,System.WorkItemType,System.Title,System.AssignedTo,System.State,System.IterationPath,Microsoft.VSTS.Scheduling.Effort,Microsoft.VSTS.Common.BacklogPriority&api-version=1.0', function (result) {
-            dispatch((0, _index.updateSprintBoard)(result));
+            dispatch((0, _index.updateSprintBoard)(result, boardIndex));
         }.bind(this));
     };
 

@@ -31,6 +31,7 @@ var dashboardreducer = exports.dashboardreducer = function dashboardreducer() {
     if (boards == null) {
         boards = [];
     }
+    var i;
     var board;
     var board;
     var tile;
@@ -54,6 +55,7 @@ var dashboardreducer = exports.dashboardreducer = function dashboardreducer() {
                 };
             case "RUN_SERVICES":
                 if (state.boards) {
+                    i = 0;
                     var _iteratorNormalCompletion = true;
                     var _didIteratorError = false;
                     var _iteratorError = undefined;
@@ -62,7 +64,7 @@ var dashboardreducer = exports.dashboardreducer = function dashboardreducer() {
                         for (var _iterator = state.boards[Symbol.iterator](), _step; !(_iteratorNormalCompletion = (_step = _iterator.next()).done); _iteratorNormalCompletion = true) {
                             board = _step.value;
 
-                            action.updateSprint(board, action.dispatch);
+                            action.updateSprint(board, i++, action.dispatch);
                         }
                     } catch (err) {
                         _didIteratorError = true;
@@ -146,9 +148,7 @@ var dashboardreducer = exports.dashboardreducer = function dashboardreducer() {
                     }, {});
                 };
 
-                index = state.boards.findIndex(function (b) {
-                    return b.type === 'SPRINT';
-                });
+                index = action.index;
                 board = state.boards[index];
                 backLogs = action.data.value.sort(function (a, b) {
                     return a.fields['Microsoft.VSTS.Common.BacklogPriority'] - b.fields['Microsoft.VSTS.Common.BacklogPriority'];
