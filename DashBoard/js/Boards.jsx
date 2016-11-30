@@ -14,14 +14,19 @@ class Boards extends Component{
         }
         var i = 0;
         var dispatch = this.dispatch;
-        var boards = this.props.data.boards.map(function(b) {
-            if (b.type == 'SPRINT') {
-                return <SprintsBoard key={i++} data={b} distpatch={dispatch}/>;
-            }
-        });
+        var selectedBoard = 0;
+        if (this.props.data.selectedBoard) {
+            selectedBoard = this.props.data.selectedBoard;
+        }
+
+        var b = this.props.data.boards[selectedBoard];
+
+        if (b.type === 'SPRINT') {
+            return (<div><SprintsBoard key={i++} data={b} distpatch={dispatch} /></div>);
+        }
  
         return (<div>
-                {boards}
+                
                </div>);
     }
 }

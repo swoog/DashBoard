@@ -32,14 +32,15 @@ class Settings extends Component{
                 return <BoardSetting key={i} data={b} dispatch={this.props.dispatch} index={i++} />;
             });
         }
-        return (<div>
-                    VSTS Project :
-                    <input ref='name' type="text" />
-                    <input ref='url' type="text" />
-                    <input ref='project' type="text" />
-                    <input ref='patToken' type="text" />
+        return (<div className="settings">
+                    <h2>Add VSTS Sprint boards :</h2>
+                    <label htmlFor="name">Name of board :</label> <input id="name" ref='name' type="text" /><br />
+                    <label htmlFor="url">VSTS url : </label> <input id="url" ref='url' type="text" /><br />
+                    <label htmlFor="project">VSTS projet name :</label> <input id="project" ref='project' type="text" /><br />
+                    <label htmlFor="patToken">VSTS PAT token :</label> <input id="patToken" ref='patToken' type="text" /><br />
                     <button onClick={this.createSprintBoard.bind(this)}>Add Sprint Board</button>
                     <div>
+                        <h2>Boards</h2>
                        {boardsSettings}
                        <button onClick={this.closeSettings.bind(this)}>Close</button>
                     </div>

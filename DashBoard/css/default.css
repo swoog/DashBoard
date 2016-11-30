@@ -20,6 +20,17 @@ body {
   background: #fff;
   box-shadow: 2px 2px 3px #dadada;
 }
+.settings {
+  padding: 10px;
+}
+label {
+  width: 200px;
+  display: block;
+  float: left;
+}
+input {
+  width: 400px;
+}
 .tile.green {
   background: #339933;
   color: #fff;

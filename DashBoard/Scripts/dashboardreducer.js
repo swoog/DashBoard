@@ -196,7 +196,7 @@ var dashboardreducer = exports.dashboardreducer = function dashboardreducer() {
                 board = (0, _lodash.merge)(board, { sprints: null, backLog: null });
                 board = (0, _lodash.merge)(board, { sprints: sprints, backLog: backLogsItems });
                 return {
-                    v: (0, _lodash.merge)(state, { boards: (0, _lodash.fill)(state.boards, board, index) })
+                    v: (0, _lodash.merge)(state, { boards: (0, _lodash.fill)(state.boards, board, index, 1) })
                 };
             default:
                 return {

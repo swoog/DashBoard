@@ -55,17 +55,22 @@ var Boards = function (_Component) {
             }
             var i = 0;
             var dispatch = this.dispatch;
-            var boards = this.props.data.boards.map(function (b) {
-                if (b.type == 'SPRINT') {
-                    return _react2.default.createElement(_sprintsBoard2.default, { key: i++, data: b, distpatch: dispatch });
-                }
-            });
+            var selectedBoard = 0;
+            if (this.props.data.selectedBoard) {
+                selectedBoard = this.props.data.selectedBoard;
+            }
 
-            return _react2.default.createElement(
-                'div',
-                null,
-                boards
-            );
+            var b = this.props.data.boards[selectedBoard];
+
+            if (b.type === 'SPRINT') {
+                return _react2.default.createElement(
+                    'div',
+                    null,
+                    _react2.default.createElement(_sprintsBoard2.default, { key: i++, data: b, distpatch: dispatch })
+                );
+            }
+
+            return _react2.default.createElement('div', null);
         }
     }]);
 

@@ -17,7 +17,7 @@ setInterval(myTimer, 2000);
 
 class Main extends Component{
     selectBoard() {
-        Dashboardstore.dispatch(selectBoard(this));        
+        Dashboardstore.dispatch(selectBoard(this));
     }
     editSettings() {
         Dashboardstore.dispatch(gotoSettings());
@@ -36,7 +36,7 @@ class Main extends Component{
                         </div>
                         <Settings data={state} dispatch={Dashboardstore.dispatch} />
                     </div>
-                );            
+                );
             case 'DASHBOARD':
                 var i = 0;
                 var boardsButton = state.boards.map(b => {
@@ -46,17 +46,17 @@ class Main extends Component{
                     <div>
                         <div className="header">
                             DashBoard
-                    <div>
-                            <button onClick={this.editSettings.bind(this)}>Edit Settings</button>
+                        <div>
+                        <button onClick={this.editSettings.bind(this)}>Edit Settings</button>
                     </div>
                     {boardsButton}
-                        </div>
-                        <Boards data={state} dispatch={Dashboardstore.dispatch} />
                     </div>
+                    <Boards data={state} dispatch={Dashboardstore.dispatch} />
+                </div>
                 );
             default:
                 return (<div>No Mode</div>);;
-        }
+       }
     }
 }
 

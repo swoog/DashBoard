@@ -109,12 +109,44 @@ var Settings = function (_Component3) {
             }
             return _react2.default.createElement(
                 "div",
-                null,
-                "VSTS Project :",
-                _react2.default.createElement("input", { ref: "name", type: "text" }),
-                _react2.default.createElement("input", { ref: "url", type: "text" }),
-                _react2.default.createElement("input", { ref: "project", type: "text" }),
-                _react2.default.createElement("input", { ref: "patToken", type: "text" }),
+                { className: "settings" },
+                _react2.default.createElement(
+                    "h2",
+                    null,
+                    "Add VSTS Sprint boards :"
+                ),
+                _react2.default.createElement(
+                    "label",
+                    { htmlFor: "name" },
+                    "Name of board :"
+                ),
+                " ",
+                _react2.default.createElement("input", { id: "name", ref: "name", type: "text" }),
+                _react2.default.createElement("br", null),
+                _react2.default.createElement(
+                    "label",
+                    { htmlFor: "url" },
+                    "VSTS url : "
+                ),
+                " ",
+                _react2.default.createElement("input", { id: "url", ref: "url", type: "text" }),
+                _react2.default.createElement("br", null),
+                _react2.default.createElement(
+                    "label",
+                    { htmlFor: "project" },
+                    "VSTS projet name :"
+                ),
+                " ",
+                _react2.default.createElement("input", { id: "project", ref: "project", type: "text" }),
+                _react2.default.createElement("br", null),
+                _react2.default.createElement(
+                    "label",
+                    { htmlFor: "patToken" },
+                    "VSTS PAT token :"
+                ),
+                " ",
+                _react2.default.createElement("input", { id: "patToken", ref: "patToken", type: "text" }),
+                _react2.default.createElement("br", null),
                 _react2.default.createElement(
                     "button",
                     { onClick: this.createSprintBoard.bind(this) },
@@ -123,6 +155,11 @@ var Settings = function (_Component3) {
                 _react2.default.createElement(
                     "div",
                     null,
+                    _react2.default.createElement(
+                        "h2",
+                        null,
+                        "Boards"
+                    ),
                     boardsSettings,
                     _react2.default.createElement(
                         "button",
